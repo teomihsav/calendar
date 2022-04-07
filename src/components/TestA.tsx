@@ -1,5 +1,5 @@
 // /** @jsx jsx */
-import { SetStateAction, useEffect, useState } from 'react'
+import { CSSProperties, SetStateAction, useEffect, useState } from 'react'
 import { jsx } from '@emotion/react'
 import { CSSObject } from '@emotion/serialize'
 import moment, { Moment } from 'moment'
@@ -98,22 +98,42 @@ const Group = (props: GroupProps<DateOption, false>) => {
     setIsOpenRange(!isOpenRange)
   }
 
+  const styles = {
+    hoverStyle: {
+      cursor: 'pointer',
+      color: 'black',
+      '&:hover': { backgroundColor: 'blue !important' },
+    }
+  }
+  const useHover = (styleOnHover: CSSProperties, styleOnNotHover: CSSProperties = {}) => {
+    const [style, setStyle] = useState(styleOnNotHover)
+
+    const onMouseEnter = () => setStyle(styleOnHover)
+    const onMouseLeave = () => setStyle(styleOnNotHover)
+
+    return { style, onMouseEnter, onMouseLeave }
+  }
+  const hover = useHover({ backgroundColor: "#7d9fc3" })
+  const hoverEnd = useHover({ backgroundColor: "#7d9fc3" })
+  const hoverRange = useHover({ backgroundColor: "#7d9fc3" })
+
   const { label } = props
   return (
     <div aria-label={label as string} >
 
-      <div onClick={handleClickRange} style={{ cursor: 'pointer', }}>
+      <div onClick={handleClickRange} {...hoverRange}>
         Date range
       </div>
-      <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center' }}>
+      {/* style={{ display: "flex", flexDirection: 'column', justifyContent: 'center' }} */}
 
+      <div>
         {
           isOpenRange &&
           <div>
-            <button onClick={handleClick} className="example-custom-input">
+            <div onClick={handleClick} {...hover} >
               {/* {moment(startDate).format("DD-MM-yyyy")} */}
               Start Date
-            </button>
+            </div>
 
             {
               isOpen && (
@@ -125,10 +145,10 @@ const Group = (props: GroupProps<DateOption, false>) => {
               )
             }
 
-            <button onClick={handleClickEnd}>
+            <div onClick={handleClickEnd} {...hoverEnd}  >
               {/* {moment(endDate).format("DD-MM-yyyy")} */}
               End Date
-            </button>
+            </div>
 
             {
               isOpenEnd && (
@@ -141,13 +161,6 @@ const Group = (props: GroupProps<DateOption, false>) => {
 
           </div>
         }
-        <div >
-
-
-
-
-        </div>
-
       </div>
     </div>
   )
