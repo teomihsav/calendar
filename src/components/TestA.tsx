@@ -71,7 +71,6 @@ const Group = (props: GroupProps<DateOption, false>) => {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
-
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenEnd, setIsOpenEnd] = useState(false)
   const [isOpenRange, setIsOpenRange] = useState(false)
@@ -101,33 +100,42 @@ const Group = (props: GroupProps<DateOption, false>) => {
 
   const { label } = props
   return (
-    <div aria-label={label as string} style={groupStyles}>
+    <div aria-label={label as string} >
 
-      <div onClick={handleClickRange}>
+      <div onClick={handleClickRange} style={{ cursor: 'pointer', }}>
         Date range
       </div>
+      <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center' }}>
 
-      {
-        isOpenRange && <div>
-          <button onClick={handleClick}>
-            {moment(startDate).format("DD-MM-yyyy")}
-          </button>
+        {
+          isOpenRange && <div>
+            <button onClick={handleClick}>
+              {moment(startDate).format("DD-MM-yyyy")}
+            </button>
 
-          <button onClick={handleClickEnd}>
-            {moment(endDate).format("DD-MM-yyyy")}
-          </button>
+            <button onClick={handleClickEnd}>
+              {moment(endDate).format("DD-MM-yyyy")}
+            </button>
+          </div>
+        }
+        <div >
+
+          {
+            isOpen && (
+              <div>
+                <input value={moment(startDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px', alignSelf: 'center' }} />
+                <DatePicker selected={startDate} onChange={handleChange} inline />
+              </div>
+            )}
+          {isOpenEnd && (
+            <div>
+              <input value={moment(endDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px' }} />
+              <DatePicker selected={endDate} onChange={handleChangeEnd} inline />
+            </div>
+          )}
         </div>
-      }
-      <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center'}}>
 
-        {isOpen && (
-          <DatePicker selected={startDate} onChange={handleChange} inline />
-        )}
-        {isOpenEnd && (
-          <DatePicker selected={endDate} onChange={handleChangeEnd} inline />
-        )}
       </div>
-
     </div>
   )
 }
