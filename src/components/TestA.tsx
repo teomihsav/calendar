@@ -58,18 +58,20 @@ const createCalendarOptions = (date = new Date()) => {
 
 defaultOptions.push(createCalendarOptions())
 
+const groupStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  // justifyContent: 'space-between',
+  flexDirection: 'column' as 'column',
+  border: 'none',
+}
+
 const Group = (props: GroupProps<DateOption, false>) => {
 
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
-  const groupStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'column' as 'column',
-    border: 'none',
-  }
+
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenEnd, setIsOpenEnd] = useState(false)
   const [isOpenRange, setIsOpenRange] = useState(false)
@@ -91,7 +93,7 @@ const Group = (props: GroupProps<DateOption, false>) => {
     e.preventDefault()
     setIsOpenEnd(!isOpenEnd)
   }
-  
+
   const handleClickRange = (e: any) => {
     e.preventDefault()
     setIsOpenRange(!isOpenRange)
@@ -101,7 +103,7 @@ const Group = (props: GroupProps<DateOption, false>) => {
   return (
     <div aria-label={label as string} style={groupStyles}>
 
-      <div  onClick={handleClickRange}>
+      <div onClick={handleClickRange}>
         Date range
       </div>
 
@@ -116,18 +118,14 @@ const Group = (props: GroupProps<DateOption, false>) => {
           </button>
         </div>
       }
-      <div >
-        <div>
-          {isOpen && (
-            <DatePicker selected={startDate} onChange={handleChange} inline />
-          )}
-        </div>
-        <p></p>
-        <div>
-          {isOpenEnd && (
-            <DatePicker selected={endDate} onChange={handleChangeEnd} inline />
-          )}
-        </div>
+      <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center'}}>
+
+        {isOpen && (
+          <DatePicker selected={startDate} onChange={handleChange} inline />
+        )}
+        {isOpenEnd && (
+          <DatePicker selected={endDate} onChange={handleChangeEnd} inline />
+        )}
       </div>
 
     </div>
@@ -179,6 +177,7 @@ const DatePickerWrap = (props: DatePickerProps) => {
       // // @ts-ignore
       // components={{ Input: InputBoxWithText, Group }}
       components={{ Group }}
+
       filterOption={null}
       isMulti={false}
       minMenuHeight={100}
@@ -208,7 +207,7 @@ const Experimental = () => {
   const { label } = state
   const displayValue = label && label ? label.toString() : 'null'
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', padding: '500px' }}>
       <pre>Value: {displayValue}</pre>
       <DatePickerWrap value={state} onChange={handleChange} setState={setState} />
     </div>
