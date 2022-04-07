@@ -6,7 +6,7 @@ import moment, { Moment } from 'moment'
 import * as chrono from 'chrono-node'
 import { css } from '@emotion/react'
 
-import Select, { GroupProps, OptionProps, components as SelectComponents } from 'react-select'
+import Select, { GroupProps, OptionProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
 import DatePicker from "react-datepicker"
 
 interface DateOption {
@@ -100,13 +100,6 @@ const Group = (props: GroupProps<DateOption, false>) => {
     setIsOpenRange(!isOpenRange)
   }
 
-  const styles = {
-    hoverStyle: {
-      cursor: 'pointer',
-      color: 'black',
-      '&:hover': { backgroundColor: 'blue !important' },
-    }
-  }
   const useHover = (styleOnHover: CSSProperties, styleOnNotHover: CSSProperties = {}) => {
     const [style, setStyle] = useState(styleOnNotHover)
 
@@ -123,11 +116,9 @@ const Group = (props: GroupProps<DateOption, false>) => {
   return (
     <div aria-label={label as string} >
 
-      <div onClick={handleClickRange} {...hoverRange}>
+      <div onClick={handleClickRange} {...hoverRange} >
         Date range
       </div>
-      {/* style={{ display: "flex", flexDirection: 'column', justifyContent: 'center' }} */}
-
       <div>
         {
           isOpenRange &&
@@ -140,12 +131,15 @@ const Group = (props: GroupProps<DateOption, false>) => {
             {
               isOpen && (
                 <div>
-                  <input type='text' value={moment(startDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px', alignSelf: 'center' }} />
+                  <div style={{ margin: '10px', alignContent: 'start' }} >
+                    <hr></hr>
+                    {moment(startDate).format("DD-MM-yyyy") as string}
+                    <hr></hr>
+                  </div>
                   <DatePicker
                     selected={startDate}
                     onChange={handleChange}
-                    isClearable inline fixedHeight
-                    shouldCloseOnSelect={false}
+                    isClearable inline
                   />
 
                 </div>
@@ -160,8 +154,15 @@ const Group = (props: GroupProps<DateOption, false>) => {
             {
               isOpenEnd && (
                 <div>
-                  <input value={moment(endDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px' }} />
-                  <DatePicker selected={endDate} onChange={handleChangeEnd} isClearable inline shouldCloseOnSelect={false} />
+                  <div style={{ margin: '10px', alignContent: 'start' }} >
+                    {moment(endDate).format("DD-MM-yyyy") as string}
+                  </div>
+                  <hr></hr>
+                  <DatePicker
+                    selected={endDate}
+                    onChange={handleChangeEnd}
+                    isClearable inline
+                  />
                 </div>
               )
             }
@@ -171,30 +172,6 @@ const Group = (props: GroupProps<DateOption, false>) => {
       </div>
     </div>
   )
-}
-
-// const Option = (props: OptionProps<DateOption, false>) => {
-//   return <SelectComponents.Option {...props} />
-// }
-// const Option = (props: OptionProps<DateOption, false>) => {
-//   const {
-//     children,
-
-//     innerRef,
-//     innerProps,
-//   } = props;
-//   return (
-//     <div
-//       ref={innerRef}
-//       {...innerProps}
-//       >
-//       <button>Test</button>
-//       {children}
-//     </div>
-//   );
-// };
-const InputBoxWithText = (props: OptionProps<DateOption, false>) => {
-  return <button > Test</button>
 }
 
 interface DatePickerProps {
@@ -213,21 +190,23 @@ const DatePickerWrap = (props: DatePickerProps) => {
   const { value } = props
 
   return (
-    <Select<DateOption, false>
-      {...props}
-      // // @ts-ignore
-      // components={{ Input: InputBoxWithText, Group }}
-      components={{ Group }}
-      closeMenuOnSelect={false}
-      filterOption={null}
-      isMulti={false}
-      minMenuHeight={100}
-      maxMenuHeight={800}
-      onChange={props.onChange}
-      onInputChange={handleInputChange}
-      options={options}
-      value={value}
-    />
+    <div style={{ padding: '100px', width: '280px' }}>
+      <Select<DateOption, false>
+        {...props}
+        // // @ts-ignore
+        // components={{ Input: InputBoxWithText, Group }}
+        components={{ Group }}
+        closeMenuOnSelect={false}
+        filterOption={null}
+        isMulti={false}
+        minMenuHeight={100}
+        maxMenuHeight={1000}
+        onChange={props.onChange}
+        onInputChange={handleInputChange}
+        options={options}
+        value={value}
+      />
+    </div>
   )
 }
 
@@ -248,8 +227,7 @@ const Experimental = () => {
   const { label } = state
   const displayValue = label && label ? label.toString() : 'null'
   return (
-    <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', padding: '100px' }}>
-      <pre>Value: {displayValue}</pre>
+    <div style={{ display: "flex", justifyContent: 'center' }}>
       <DatePickerWrap value={state} onChange={handleChange} setState={setState} />
     </div>
   )
