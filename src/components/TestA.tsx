@@ -108,31 +108,44 @@ const Group = (props: GroupProps<DateOption, false>) => {
       <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center' }}>
 
         {
-          isOpenRange && <div>
-            <button onClick={handleClick}>
-              {moment(startDate).format("DD-MM-yyyy")}
+          isOpenRange &&
+          <div>
+            <button onClick={handleClick} className="example-custom-input">
+              {/* {moment(startDate).format("DD-MM-yyyy")} */}
+              Start Date
             </button>
 
+            {
+              isOpen && (
+                <div>
+                  <input value={moment(startDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px', alignSelf: 'center' }} />
+                  <DatePicker selected={startDate} onChange={handleChange} inline isClearable={true} />
+
+                </div>
+              )
+            }
+
             <button onClick={handleClickEnd}>
-              {moment(endDate).format("DD-MM-yyyy")}
+              {/* {moment(endDate).format("DD-MM-yyyy")} */}
+              End Date
             </button>
+
+            {
+              isOpenEnd && (
+                <div>
+                  <input value={moment(endDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px' }} />
+                  <DatePicker selected={endDate} onChange={handleChangeEnd} inline isClearable={true} />
+                </div>
+              )
+            }
+
           </div>
         }
         <div >
 
-          {
-            isOpen && (
-              <div>
-                <input value={moment(startDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px', alignSelf: 'center' }} />
-                <DatePicker selected={startDate} onChange={handleChange} inline />
-              </div>
-            )}
-          {isOpenEnd && (
-            <div>
-              <input value={moment(endDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px' }} />
-              <DatePicker selected={endDate} onChange={handleChangeEnd} inline />
-            </div>
-          )}
+
+
+
         </div>
 
       </div>
@@ -215,7 +228,7 @@ const Experimental = () => {
   const { label } = state
   const displayValue = label && label ? label.toString() : 'null'
   return (
-    <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', padding: '500px' }}>
+    <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', padding: '100px' }}>
       <pre>Value: {displayValue}</pre>
       <DatePickerWrap value={state} onChange={handleChange} setState={setState} />
     </div>
