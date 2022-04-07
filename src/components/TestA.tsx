@@ -76,11 +76,13 @@ const Group = (props: GroupProps<DateOption, false>) => {
   const [isOpenRange, setIsOpenRange] = useState(false)
 
   const handleChange = (e: any) => {
-    setIsOpen(!isOpen)
+
+    setIsOpen(true)
     setStartDate(e)
   }
   const handleChangeEnd = (e: any) => {
-    setIsOpenEnd(!isOpenEnd)
+
+    setIsOpenEnd(true)
     setEndDate(e)
   }
 
@@ -113,9 +115,9 @@ const Group = (props: GroupProps<DateOption, false>) => {
 
     return { style, onMouseEnter, onMouseLeave }
   }
-  const hover = useHover({ backgroundColor: "#7d9fc3" })
-  const hoverEnd = useHover({ backgroundColor: "#7d9fc3" })
-  const hoverRange = useHover({ backgroundColor: "#7d9fc3" })
+  const hover = useHover({ backgroundColor: "#cbd8e7" })
+  const hoverEnd = useHover({ backgroundColor: "#cbd8e7" })
+  const hoverRange = useHover({ backgroundColor: "#cbd8e7" })
 
   const { label } = props
   return (
@@ -138,8 +140,13 @@ const Group = (props: GroupProps<DateOption, false>) => {
             {
               isOpen && (
                 <div>
-                  <input value={moment(startDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px', alignSelf: 'center' }} />
-                  <DatePicker selected={startDate} onChange={handleChange} inline isClearable={true} />
+                  <input type='text' value={moment(startDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px', alignSelf: 'center' }} />
+                  <DatePicker
+                    selected={startDate}
+                    onChange={handleChange}
+                    isClearable inline fixedHeight
+                    shouldCloseOnSelect={false}
+                  />
 
                 </div>
               )
@@ -154,7 +161,7 @@ const Group = (props: GroupProps<DateOption, false>) => {
               isOpenEnd && (
                 <div>
                   <input value={moment(endDate).format("DD-MM-yyyy") as unknown as string} style={{ border: 'none', margin: '10px' }} />
-                  <DatePicker selected={endDate} onChange={handleChangeEnd} inline isClearable={true} />
+                  <DatePicker selected={endDate} onChange={handleChangeEnd} isClearable inline shouldCloseOnSelect={false} />
                 </div>
               )
             }
@@ -211,7 +218,7 @@ const DatePickerWrap = (props: DatePickerProps) => {
       // // @ts-ignore
       // components={{ Input: InputBoxWithText, Group }}
       components={{ Group }}
-
+      closeMenuOnSelect={false}
       filterOption={null}
       isMulti={false}
       minMenuHeight={100}
