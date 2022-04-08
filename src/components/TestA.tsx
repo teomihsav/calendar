@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment'
 import Select, { GroupProps } from 'react-select'
 import DatePicker from "react-datepicker"
 
-import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai"
+import { AiFillCaretUp, AiFillCaretDown, AiOutlineDelete } from "react-icons/ai"
 
 interface DateOption {
   date: Moment
@@ -106,17 +106,17 @@ const Group = (props: GroupProps<DateOption, false>) => {
             {
               isOpen && (
                 <div>
-                  <div style={{ margin: '10px', alignContent: 'start' }} >
-                    <hr></hr>
-                    {moment(startDate).format("DD-MM-yyyy") as string}
-                    <hr></hr>
+                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', margin: '8px' }}>
+                    {moment(startDate).isValid() ? moment(startDate).format("DD-MM-yyyy") : '00-00-0000' as string}
+                    <div onClick={() => setStartDate('' as any)}> < AiOutlineDelete /> </div>
                   </div>
+                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
                   <DatePicker
                     selected={startDate}
                     onChange={handleChange}
                     isClearable inline
                   />
-
                 </div>
               )
             }
@@ -128,11 +128,12 @@ const Group = (props: GroupProps<DateOption, false>) => {
             {
               isOpenEnd && (
                 <div>
-                  <div style={{ margin: '10px', alignContent: 'start' }} >
-                    <hr></hr>
-                    {moment(endDate).format("DD-MM-yyyy") as string}
+                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', margin: '8px' }}>
+                    {moment(endDate).isValid() ? moment(endDate).format("DD-MM-yyyy") : '00-00-0000' as string}
+                    <div onClick={() => setEndDate('' as any)}> < AiOutlineDelete /> </div>
                   </div>
-                  <hr></hr>
+                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
                   <DatePicker
                     selected={endDate}
                     onChange={handleChangeEnd}
