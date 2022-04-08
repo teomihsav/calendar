@@ -1,10 +1,12 @@
-import { CSSProperties, useState } from 'react'
-import moment, { Moment } from 'moment'
+import React, { CSSProperties, useState } from 'react'
 
+import moment, { Moment } from 'moment'
 import Select, { GroupProps } from 'react-select'
 import DatePicker from "react-datepicker"
 
 import { AiFillCaretUp, AiFillCaretDown, AiOutlineDelete } from "react-icons/ai"
+
+import "react-datepicker/dist/react-datepicker.css"
 
 interface DateOption {
   date: Moment
@@ -25,6 +27,7 @@ const defaultOptions: (DateOption | any)[] = [
   'Last 7 days',
   'Last 14 days',
   'Last 30 days',
+  'Data Range'
 ].map(item => createOptionForDate(item))
 
 
@@ -90,59 +93,62 @@ const Group = (props: GroupProps<DateOption, false>) => {
   const hoverEnd = useHover({ backgroundColor: "#cbd8e7" })
   const hoverRange = useHover({ backgroundColor: "#cbd8e7" })
 
+
   return (
     <div>
       <div onClick={handleClickRange} {...hoverRange} >
-        <span style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', margin: '8px' }}>Date range {isOpenRange ? <AiFillCaretUp /> : <AiFillCaretDown />} </span>
+        <span style={{ display: 'flex', justifyContent: 'space-between', padding: '9px' }}>Date range {isOpenRange ? <AiFillCaretUp /> : <AiFillCaretDown />} </span>
       </div>
       <div>
         {
           isOpenRange &&
           <div>
             <div onClick={handleClick} {...hover} >
-              <span style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', margin: '8px' }}>Start Date {isOpen ? <AiFillCaretUp /> : <AiFillCaretDown />} </span>
+              <span style={{ display: 'flex', justifyContent: 'space-between', padding: '9px' }}>Start Date {isOpen ? <AiFillCaretUp /> : <AiFillCaretDown />} </span>
             </div>
 
             {
               isOpen && (
                 <div>
-                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', margin: '8px' }}>
+                  <div style={{ height: '2px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '9px' }}>
                     {moment(startDate).isValid() ? moment(startDate).format("DD-MM-yyyy") : '00-00-0000' as string}
                     <div onClick={() => setStartDate('' as any)}> < AiOutlineDelete /> </div>
                   </div>
-                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
+                  <div style={{ height: '2px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
                   <DatePicker
                     selected={startDate}
                     onChange={handleChange}
                     isClearable inline
+
                   />
                 </div>
               )
             }
 
             <div onClick={handleClickEnd} {...hoverEnd}  >
-              <span style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', margin: '8px' }}>End Date {isOpenEnd ? <AiFillCaretUp /> : <AiFillCaretDown />} </span>
+              <span style={{ display: 'flex', justifyContent: 'space-between', padding: '9px' }}>End Date {isOpenEnd ? <AiFillCaretUp /> : <AiFillCaretDown />} </span>
             </div>
 
             {
               isOpenEnd && (
                 <div>
-                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', margin: '8px' }}>
+                  <div style={{ height: '2px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '9px', margin: '8px' }}>
                     {moment(endDate).isValid() ? moment(endDate).format("DD-MM-yyyy") : '00-00-0000' as string}
                     <div onClick={() => setEndDate('' as any)}> < AiOutlineDelete /> </div>
                   </div>
-                  <div style={{ height: '1px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
-                  <DatePicker
-                    selected={endDate}
-                    onChange={handleChangeEnd}
-                    isClearable inline
-                  />
+                  <div style={{ height: '2px', background: 'black', margin: '10px', backgroundColor: 'lightGrey' }}> </div>
+                  <div>
+                    <DatePicker
+                      selected={endDate}
+                      onChange={handleChangeEnd}
+                      isClearable inline
+                    />
+                  </div>
                 </div>
               )
             }
-
           </div>
         }
       </div>
@@ -165,16 +171,22 @@ const DatePickerWrap = (props: DatePickerProps) => {
   }
   const { value } = props
 
+  const customStyles = {
+    option: (provided: any, state: { isSelected: any }) => ({
+      ...provided,
+      // borderBottom: '1px dotted pink',
+      // color: state.isSelected ? 'black' : 'black',
+      padding: 10,
+    }),
+  }
+
   return (
-    <div style={{ padding: '100px', width: '280px' }}>
-      <Select<DateOption, false>
+    <div style={{ padding: '100px', width: '242px', }}>
+      <Select
         {...props}
-        // // @ts-ignore
-        // components={{ Input: InputBoxWithText, Group }}
+        styles={customStyles}
         components={{ Group }}
         closeMenuOnSelect={false}
-        filterOption={null}
-        isMulti={false}
         minMenuHeight={100}
         maxMenuHeight={1000}
         onChange={props.onChange}
@@ -188,10 +200,14 @@ const DatePickerWrap = (props: DatePickerProps) => {
 
 const Experimental = () => {
 
-  const [state, setState] = useState(defaultOptions[0] as DateOption)
+  const [state, setState] = useState(defaultOptions[0])
 
   const handleChange = (value: any) => {
     setState(value)
+  }
+
+  if (state.value === 'Data Range') {
+    console.log('TEST')
   }
 
   return (
