@@ -6,11 +6,12 @@ import Opt from './components/Option'
 import './App.css'
 import "react-datepicker/dist/react-datepicker.css"
 
+
 const App = () => {
 
   return (
     <div className='App'>
-      <Opt />
+        <Opt />
     </div>
   )
 }
