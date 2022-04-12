@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
 import Select, { StylesConfig, components, GroupBase, OptionProps } from "react-select"
-import styled from "styled-components"
 
 import DatePicker from "react-datepicker"
 import moment from "moment"
@@ -14,10 +13,9 @@ import { AiFillCaretUp, AiFillCaretDown, AiOutlineDelete } from "react-icons/ai"
 import './Option.css'
 
 const renderNestedOption = (props: JSX.IntrinsicAttributes & OptionProps<unknown, boolean, GroupBase<unknown>>, label: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined, nestedOptions: { displayName: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }[]) => {
-    const { innerProps, selectOption } = props
 
     return (
-        <div className="nested-optgroup">
+        <div >
             <div
                 style={{
                     color: "grey",
@@ -47,11 +45,11 @@ const Option = (props: any) => {
     const [isOpen, setIsOpen] = useState(false)
     const [isOpenRange, setIsOpenRange] = useState(false)
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.SetStateAction<Date | any>) => {
         setIsOpen(true)
         setStartDate(e)
     }
-    const handleChangeEnd = (e: any) => {
+    const handleChangeEnd = (e: React.SetStateAction<Date | any>) => {
         setIsOpenEnd(true)
         setEndDate(e)
     }
@@ -65,7 +63,7 @@ const Option = (props: any) => {
         setIsOpenEnd(!isOpenEnd)
     }
 
-    const handleClickRange = (e: any) => {
+    const handleClickRange = (e: { preventDefault: () => void }) => {
         e.preventDefault()
         setIsOpenRange(!isOpenRange)
     }
@@ -188,10 +186,7 @@ const Opt = () => {
         option: (styles, { data, isDisabled, isFocused, isSelected, }) => {
             return {
                 backgroundColor: isDisabled ? undefined : isSelected ? '#e0e8f3' : isFocused ? '#f0f6ff' : undefined,
-                fontWeight:  isSelected ? '600' : isFocused ? '600' : undefined,
-                paddingBottom: '0px',
-                justifyContent: 'space-around',
-                color: 'green'
+                fontWeight:  isSelected ? '600' : isFocused ? '600' : '500',
             }
         },
     }
@@ -200,7 +195,7 @@ const Opt = () => {
 
         <div style={{ position: 'relative', width: '242px', background: '#fff', fontWeight: '400'}}>
             <Select
-                menuIsOpen
+                // menuIsOpen
                 components={{ Option }}
                 closeMenuOnSelect={false}
                 options={options as []}

@@ -1,6 +1,5 @@
 
 
-
 .input  {
     border: 0;
     font-size: 15px;
@@ -109,12 +108,12 @@
 
 .react-datepicker__day-names {
   position: relative;
-  top: 25px;
+  top: 24px;
 }
 .react-datepicker__month {
   margin: 0.4rem;
   position: relative;
-  top: 14px;
+  top: 13px;
   text-align: center;
   font-weight: 700;
 }
@@ -142,7 +141,7 @@
 .react-datepicker__header {
   /* background-color: transparent; */
   background-color: white;
-  /* font: "lato"; */
+  font: "GothamMedium";
 }
 
 
@@ -165,7 +164,7 @@ button {
 .react-datepicker__day,
 .react-datepicker__time-name {
   border-radius: 5rem;
-  /* font: "lato"; */
+  font: "GothamMedium";
 }
 
 /* COLOR FOR SELECTED DATE: #1648C3 */
