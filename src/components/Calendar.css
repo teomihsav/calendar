@@ -1,0 +1,75 @@
+.myClassname,
+.react-datepicker {
+  border: none;
+  background-color: white;
+}
+
+.myClassname,
+.react-datepicker__day--selected {
+  background-color: #1648c3 !important;
+}
+
+/* Styles for On Hover of selected */
+.myClassname,
+.react-datepicker__day--selected:hover {
+  background-color: #1648c3 !important;
+}
+
+.myClassname,
+.react-datepicker__header {
+  /* background-color: transparent; */
+  background-color: white;
+  border-bottom: white;
+  font: "lato";
+}
+
+.myClassname,
+.react-datepicker__day-names {
+  font-weight: 700;
+}
+
+.myClassname,
+.react-datepicker__day--today {
+  border: 2px solid
+    linear-gradient(
+      174deg,
+      rgba(255, 165, 0, 0.7357317927170868) 32%,
+      rgba(249, 239, 170, 1) 100%
+    );
+  border-radius: 0.3rem;
+  background: linear-gradient(
+    174deg,
+    rgba(255, 165, 0, 0.7357317927170868) 32%,
+    rgba(249, 239, 170, 1) 100%
+  );
+}
+
+.myClassname,
+.react-datepicker__navigation--previous {
+  left: -70px !important;
+  border-right-color: black;
+}
+
+.myClassname,
+.react-datepicker__navigation--next {
+  right: -70px;
+  border-left-color: black;
+}
+
+.myClassname,
+button:not(.ant-btn-round):not(.ant-btn-link):not(.ant-btn) {
+  height: 0px;
+  min-width: 100px;
+  outline: none;
+}
+
+.myClassname,
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 2.5rem;
+  height: 2.5rem;
+  font: "lato";
+}
+
+/* COLOR FOR SELECTED DATE: #1648C3 */

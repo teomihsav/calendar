@@ -1,14 +1,14 @@
-import React, { CSSProperties, useState } from "react"
+import React, { useState } from "react"
 
 import Select, { StylesConfig, components, GroupBase, OptionProps } from "react-select"
-
-// import { ColourOption, colourOptions } from '../data';
+import styled from "styled-components"
 
 import DatePicker from "react-datepicker"
 import moment from "moment"
 
 import { options } from "./data"
 import "react-datepicker/dist/react-datepicker.css"
+
 import { AiFillCaretUp, AiFillCaretDown, AiOutlineDelete } from "react-icons/ai"
 
 import './Option.css'
@@ -39,6 +39,7 @@ const renderNestedOption = (props: JSX.IntrinsicAttributes & OptionProps<unknown
 }
 
 const Option = (props: any) => {
+
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [isOpenEnd, setIsOpenEnd] = useState(false)
@@ -82,7 +83,7 @@ const Option = (props: any) => {
                 <div style={{ cursor: 'pointer' }}>
                     <div onClick={handleClickRange}>
                         <span style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 11px 9px 9px', color: 'black' }}>
-                            {children} {isOpenRange ? <AiFillCaretUp color='grey'/> : <AiFillCaretDown color='grey'/>}
+                            {children} {isOpenRange ? <AiFillCaretUp color='grey' /> : <AiFillCaretDown color='grey' />}
                         </span>
                     </div>
                     <div>
@@ -95,31 +96,31 @@ const Option = (props: any) => {
                                             <input
                                                 className={isOpen ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='Start Date'
-                                                value={isOpen ? moment(startDate).format("DD-MM-yyyy") : 'Start Date'}
+                                                value={isOpen ? moment(startDate).format("MMM DD, yyyy") : 'Start Date'}
                                             />
                                             <span style={{ margin: '10px' }}>
-                                                {isOpen ? <AiFillCaretUp color='grey'/> : <AiFillCaretDown color='grey'/>}
+                                                {isOpen ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
                                             </span>
                                         </span>
                                     </div>
                                     {
                                         isOpen &&
                                         <span onClick={() => setStartDate("" as unknown as Date)} style={{ margin: '0px 10px 0px 0px' }}>
-                                            <AiOutlineDelete color='grey'/>
+                                            <AiOutlineDelete color='grey' />
                                         </span>
                                     }
                                 </span>
-                                <div style={{ height: "2px", background: "lightGrey", margin: "0px 10px 10px 10px", color: "lightGrey" }}  > </div>
+                                <div style={{ height: "2px", background: "grey", margin: "0px 10px 10px 10px", color: "grey" }}  > </div>
 
                                 {isOpen && (
                                     <div >
                                         <div>
-                                            <DatePicker
-                                                selected={startDate}
-                                                onChange={handleChange}
-                                                isClearable
-                                                inline
-                                            />
+                                                <DatePicker
+                                                    selected={startDate}
+                                                    onChange={handleChange}
+                                                    isClearable
+                                                    inline
+                                                />
                                         </div>
                                     </div>
                                 )}
@@ -132,21 +133,21 @@ const Option = (props: any) => {
                                             <input
                                                 className={isOpenEnd ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='End Date'
-                                                value={isOpenEnd ? moment(endDate).format("DD-MM-yyyy") : 'End Date'}
+                                                value={isOpenEnd ? moment(endDate).format("MMM DD, yyyy") : 'End Date'}
                                             />
                                             <span style={{ margin: '10px' }}>
-                                                {isOpenEnd ? <AiFillCaretUp color='grey'/> : <AiFillCaretDown color='grey'/>}
+                                                {isOpenEnd ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
                                             </span>
                                         </span>
                                     </div>
                                     {
                                         isOpenEnd &&
                                         <span onClick={() => setEndDate("" as unknown as Date)} style={{ margin: '0px 10px 0px 0px' }}>
-                                            <AiOutlineDelete color='grey'/>
+                                            <AiOutlineDelete color='grey' />
                                         </span>
                                     }
                                 </span>
-                                <div style={{ height: "2px", background: "lightGrey", margin: "0px 10px 10px 10px", color: "lightGrey" }}  > </div>
+                                <div style={{ height: "2px", background: "grey", margin: "0px 10px 10px 10px", color: "grey" }}  > </div>
 
                                 {isOpenEnd && (
                                     <div >
@@ -161,7 +162,6 @@ const Option = (props: any) => {
                                     </div>
                                 )}
                             </div>
-
                         )}
                     </div>
 
@@ -185,26 +185,28 @@ const Opt = () => {
     // }
     const colourStyles: StylesConfig<true> = {
         control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-            const color = '#e0e8f3'
+        option: (styles, { data, isDisabled, isFocused, isSelected, }) => {
             return {
                 backgroundColor: isDisabled ? undefined : isSelected ? '#e0e8f3' : isFocused ? '#f0f6ff' : undefined,
-                paddingBottom: '0px'
+                fontWeight:  isSelected ? '600' : isFocused ? '600' : undefined,
+                paddingBottom: '0px',
+                justifyContent: 'space-around',
+                color: 'green'
             }
         },
     }
 
     return (
 
-        <div style={{ position: 'relative', width: '242px', background: '#fff', }}>
+        <div style={{ position: 'relative', width: '242px', background: '#fff', fontWeight: '400'}}>
             <Select
                 menuIsOpen
                 components={{ Option }}
                 closeMenuOnSelect={false}
                 options={options as []}
                 placeholder="Today"
-                minMenuHeight={100}
-                maxMenuHeight={1000}
+                minMenuHeight={200}
+                maxMenuHeight={1200}
                 styles={colourStyles}
             // onInputChange={handleInputChange}
             // value={value}
