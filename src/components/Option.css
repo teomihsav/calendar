@@ -21,8 +21,34 @@
   cursor: 'pointer';
   font-weight: 600;
 }
+.pointer {
+  cursor: pointer;
+}
+.openRange {
+   display: flex;
+   justify-Content: space-between;
+   padding: 9px 11px 9px 9px;
+   color: #205658;
+}
+.backGround {
+  background: white;
+}
+.someMargin {
+  margin: 10px;
+}
 
-.myClassname,
+.displayInnerOption {
+    display: flex;
+    align-Items: center;
+    cursor: pointer;
+}
+.displayInnerOptionChvron {
+  display: flex;
+  padding: 0px;
+  color: #205658;
+  background: white;
+  cursor: pointer;
+}
 .react-datepicker__header {
   text-align: center;
   border-bottom: 2px solid #fff;
@@ -30,8 +56,24 @@
   padding: 8px 0;
   position: relative;
 }
+.addLine {
+  height: 2px; 
+  background: grey;
+  margin: 0px 10px 10px 10px; 
+  color: grey;
+}
+.options {
+  display: flex;
+  padding: 9px;
+  color: black;
+}
+.select {
+  position: relative; 
+  width: 242px; 
+  background: #fff; 
+  font-weight: 400;
+}
 
-.myClassname,
 .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
   font-weight: bold;
   font-size: 0.944rem;
@@ -70,7 +112,7 @@
     overflow: hidden;
 }
 
-.myClassname,
+
 .react-datepicker__navigation--previous {
   left: 15px;
   top: 0px;  
@@ -83,7 +125,7 @@
   border-right:8px solid grey;
 }
 
-.myClassname,
+
 .react-datepicker__navigation--next {
   right: 15px;
   top: 0px;  
@@ -117,13 +159,13 @@
   text-align: center;
   font-weight: 700;
 }
-.myClassname,
+
 .react-datepicker {
   border: none;
   background-color: white;
 }
 
-.myClassname,
+
 .react-datepicker__day--selected {
   background-color: #5aaaad !important;
   border-radius: 5rem;
@@ -131,13 +173,13 @@
 }
 
 /* Styles for On Hover of selected */
-.myClassname,
+
 .react-datepicker__day--selected:hover {
   background-color: #5aaaad !important;
   border-radius: 5rem;
 }
 
-.myClassname,
+
 .react-datepicker__header {
   /* background-color: transparent; */
   background-color: white;
@@ -145,13 +187,13 @@
 }
 
 
-.myClassname,
+
 .react-datepicker__day--today {
 align-self: center;
 border-radius: 5rem;
 }
 
-.myClassname,
+
 button {
   height: 0px;
   min-width: 10px;
@@ -159,7 +201,7 @@ button {
   border-radius: 5rem;
 }
 
-.myClassname,
+
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {

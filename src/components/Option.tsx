@@ -54,38 +54,37 @@ const Option = (props: OptionProps<DateOption, false>) => {
     if (children === "Data Range") {
         return (
             <components.Option {...props}>
-                <div style={{ cursor: 'pointer' }}>
+                <div className='pointer'>
                     <div onClick={handleClickRange}>
-                        <span style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 11px 9px 9px', color: 'black' }}>
+                        <span className='openRange'>
                             {children} {isOpenRange ? <AiFillCaretUp color='grey' /> : <AiFillCaretDown color='grey' />}
                         </span>
                     </div>
                     <div>
                         {isOpenRange && (
-                            <div style={{ background: 'white' }}>
+                            <div className='backGround'>
 
-                                <span style={{ display: "flex", alignItems: 'center', color: 'black' }}>
+                                <span className='displayInnerOption'>
                                     <div onClick={handleClick} >
-                                        <span style={{ display: "flex", padding: "0px", color: 'black', background: 'white' }}>
+                                        <span className='displayInnerOptionChvron'>
                                             <input
                                                 className={isOpen ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='Start Date'
-
                                                 value={isOpen ? moment(startDate).format("MMM DD, yyyy") : 'Start Date'}
                                             />
-                                            <span style={{ margin: '10px' }}>
+                                            <span className='someMargin'>
                                                 {isOpen ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
                                             </span>
                                         </span>
                                     </div>
                                     {
                                         isOpen &&
-                                        <span onClick={() => setStartDate("" as unknown as Date)} style={{ margin: '0px 10px 0px 0px' }}>
+                                        <span onClick={() => setStartDate("" as unknown as Date)} >
                                             <AiOutlineDelete color='grey' />
                                         </span>
                                     }
                                 </span>
-                                <div style={{ height: "2px", background: "grey", margin: "0px 10px 10px 10px", color: "grey" }}  > </div>
+                                <div className='addLine' > </div>
 
                                 {isOpen && (
                                     <div >
@@ -100,29 +99,27 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                     </div>
                                 )}
 
-                                {/* --- */}
-
-                                <span style={{ display: "flex", alignItems: 'center', color: 'black', }}>
+                                <span className='displayInnerOption'>
                                     <div onClick={handleClickEnd} >
-                                        <span style={{ color: 'black', background: 'white' }}>
+                                        <span>
                                             <input
                                                 className={isOpenEnd ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='End Date'
                                                 value={isOpenEnd ? moment(endDate).format("MMM DD, yyyy") : 'End Date'}
                                             />
-                                            <span style={{ margin: '10px' }}>
+                                            <span className='someMargin'>
                                                 {isOpenEnd ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
                                             </span>
                                         </span>
                                     </div>
                                     {
                                         isOpenEnd &&
-                                        <span onClick={() => setEndDate("" as unknown as Date)} style={{ margin: '0px 10px 0px 0px' }}>
+                                        <span onClick={() => setEndDate("" as unknown as Date)} >
                                             <AiOutlineDelete color='grey' />
                                         </span>
                                     }
                                 </span>
-                                <div style={{ height: "2px", background: "grey", margin: "0px 10px 10px 10px", color: "grey" }}  > </div>
+                                <div className='addLine'  > </div>
 
                                 {isOpenEnd && (
                                     <div >
@@ -143,7 +140,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
             </components.Option >
         )
     } else {
-        return <components.Option {...props}><span style={{ display: 'flex', padding: '9px', color: 'black' }}>{children}</span></components.Option>
+        return <components.Option {...props}><span className='options'>{children}</span></components.Option>
     }
 }
 
@@ -161,9 +158,9 @@ const Opt = () => {
 
     return (
 
-        <div style={{ position: 'relative', width: '242px', background: '#fff', fontWeight: '400' }}>
+        <div className='select'>
             <Select
-                // menuIsOpen
+                menuIsOpen
                 components={{ Option: Option }}
                 closeMenuOnSelect={false}
                 options={options as []}
