@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 import Select, { StylesConfig, components, OptionProps } from "react-select"
 import DatePicker from "react-datepicker"
-import moment, { Moment } from "moment"
+import moment from "moment"
 
 import { AiFillCaretUp, AiFillCaretDown, AiOutlineDelete } from "react-icons/ai"
 import "react-datepicker/dist/react-datepicker.css"
@@ -13,7 +13,6 @@ import { options } from "./data"
 interface DateOption {
     displayName: string
     options: string
-    date: Moment
     value: Date
     label: string
     display?: string
@@ -22,8 +21,10 @@ interface DateOption {
 
 const Option = (props: OptionProps<DateOption, false>) => {
 
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
+    // setValue : React.Dispatch<React.SetStateAction<string>>
+    
+    const [startDate, setStartDate] = useState<React.SetStateAction<string | Date>>(new Date())
+    const [endDate, setEndDate] = useState<React.SetStateAction<string | Date>>(new Date())
     const [isOpenEnd, setIsOpenEnd] = useState(false)
 
     const [isOpen, setIsOpen] = useState(false)
@@ -45,15 +46,14 @@ const Option = (props: OptionProps<DateOption, false>) => {
         setIsOpenEnd(!isOpenEnd)
     }
 
-    const handleClickRange = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
+    const handleClickRange = () => {
         setIsOpenRange(!isOpenRange)
     }
     const handleDeleteStart = () => {
-        setStartDate('' as any)
+        setStartDate('')
     }
     const handleDeleteEnd = () => {
-        setEndDate('' as any)
+        setEndDate('')
     }
 
     const { children } = props
@@ -77,7 +77,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                             <input
                                                 className={isOpen ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='Start Date'
-                                                value={isOpen ? moment(startDate).isValid() ? moment(startDate).format('MMM DD, YYYY') : ' ' : 'Start Date'}
+                                                value={isOpen ? moment(String(startDate)).isValid() ? moment(String(startDate)).format('MMM DD, YYYY') : ' ' : 'Start Date'}
                                             />
                                             <span className='someMargin'>
                                                 {isOpen ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
@@ -97,7 +97,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                     <div >
                                         <div>
                                             <DatePicker
-                                                selected={startDate}
+                                                selected={startDate as Date}
                                                 onChange={handleChange}
                                                 isClearable
                                                 inline
@@ -112,7 +112,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                             <input
                                                 className={isOpenEnd ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='End Date'
-                                                value={isOpen ? moment(endDate).isValid() ? moment(endDate).format('MMM DD, YYYY') : ' ' : 'End Date'}
+                                                value={isOpen ? moment(String(endDate)).isValid() ? moment(String(endDate)).format('MMM DD, YYYY') : ' ' : 'End Date'}
                                             />
                                             <span className='someMargin'>
                                                 {isOpenEnd ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
@@ -132,7 +132,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                     <div >
                                         <div>
                                             <DatePicker
-                                                selected={endDate}
+                                                selected={endDate as Date}
                                                 onChange={handleChangeEnd}
                                                 isClearable
                                                 inline
