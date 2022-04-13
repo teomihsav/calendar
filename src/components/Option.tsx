@@ -17,6 +17,7 @@ interface DateOption {
     value: Date
     label: string
     display?: string
+    moment: Date
 }
 
 const Option = (props: OptionProps<DateOption, false>) => {
@@ -48,6 +49,12 @@ const Option = (props: OptionProps<DateOption, false>) => {
         e.preventDefault()
         setIsOpenRange(!isOpenRange)
     }
+    const handleDeleteStart = () => {
+        setStartDate('' as any)
+    }
+    const handleDeleteEnd = () => {
+        setEndDate('' as any)
+    }
 
     const { children } = props
 
@@ -70,7 +77,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                             <input
                                                 className={isOpen ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='Start Date'
-                                                value={isOpen ? moment(startDate).format("MMM DD, yyyy") : 'Start Date'}
+                                                value={isOpen ? moment(startDate).isValid() ? moment(startDate).format('MMM DD, YYYY') : ' ' : 'Start Date'}
                                             />
                                             <span className='someMargin'>
                                                 {isOpen ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
@@ -79,7 +86,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                     </div>
                                     {
                                         isOpen &&
-                                        <span onClick={() => setStartDate("" as unknown as Date)} >
+                                        <span onClick={handleDeleteStart} >
                                             <AiOutlineDelete color='grey' />
                                         </span>
                                     }
@@ -105,7 +112,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                             <input
                                                 className={isOpenEnd ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='End Date'
-                                                value={isOpenEnd ? moment(endDate).format("MMM DD, yyyy") : 'End Date'}
+                                                value={isOpen ? moment(endDate).isValid() ? moment(endDate).format('MMM DD, YYYY') : ' ' : 'End Date'}
                                             />
                                             <span className='someMargin'>
                                                 {isOpenEnd ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
@@ -114,7 +121,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                     </div>
                                     {
                                         isOpenEnd &&
-                                        <span onClick={() => setEndDate("" as unknown as Date)} >
+                                        <span onClick={handleDeleteEnd} >
                                             <AiOutlineDelete color='grey' />
                                         </span>
                                     }
