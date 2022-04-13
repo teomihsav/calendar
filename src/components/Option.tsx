@@ -13,11 +13,11 @@ import { options } from "./data"
 interface DateOption {
     displayName: string
     options: string
-    date: Moment;
-    value: Date;
-    label: string;
-    display?: string;
-  }
+    date: Moment
+    value: Date
+    label: string
+    display?: string
+}
 
 const Option = (props: OptionProps<DateOption, false>) => {
 
@@ -28,21 +28,19 @@ const Option = (props: OptionProps<DateOption, false>) => {
     const [isOpen, setIsOpen] = useState(false)
     const [isOpenRange, setIsOpenRange] = useState(false)
 
-    const handleChange = (e: React.SetStateAction<Date | any>) => {
+    const handleChange = (e: Date) => {
         setIsOpen(true)
         setStartDate(e)
     }
-    const handleChangeEnd = (e: React.SetStateAction<Date | any>) => {
+    const handleChangeEnd = (e: Date) => {
         setIsOpenEnd(true)
         setEndDate(e)
     }
 
-    const handleClick = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
+    const handleClick = () => {
         setIsOpen(!isOpen)
     }
-    const handleClickEnd = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
+    const handleClickEnd = () => {
         setIsOpenEnd(!isOpenEnd)
     }
 
@@ -72,7 +70,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                             <input
                                                 className={isOpen ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='Start Date'
-                                                
+
                                                 value={isOpen ? moment(startDate).format("MMM DD, yyyy") : 'Start Date'}
                                             />
                                             <span style={{ margin: '10px' }}>
@@ -82,7 +80,7 @@ const Option = (props: OptionProps<DateOption, false>) => {
                                     </div>
                                     {
                                         isOpen &&
-                                        <span onClick={() => setStartDate( null as any)} style={{ margin: '0px 10px 0px 0px' }}>
+                                        <span onClick={() => setStartDate("" as unknown as Date)} style={{ margin: '0px 10px 0px 0px' }}>
                                             <AiOutlineDelete color='grey' />
                                         </span>
                                     }
