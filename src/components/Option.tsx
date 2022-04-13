@@ -1,42 +1,25 @@
 import React, { useState } from "react"
 
-import Select, { StylesConfig, components, GroupBase, OptionProps } from "react-select"
-
+import Select, { StylesConfig, components, OptionProps } from "react-select"
 import DatePicker from "react-datepicker"
-import moment from "moment"
-
-import { options } from "./data"
-import "react-datepicker/dist/react-datepicker.css"
+import moment, { Moment } from "moment"
 
 import { AiFillCaretUp, AiFillCaretDown, AiOutlineDelete } from "react-icons/ai"
-
+import "react-datepicker/dist/react-datepicker.css"
 import './Option.css'
 
-const renderNestedOption = (props: JSX.IntrinsicAttributes & OptionProps<unknown, boolean, GroupBase<unknown>>, label: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined, nestedOptions: { displayName: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }[]) => {
+import { options } from "./data"
 
-    return (
-        <div >
-            <div
-                style={{
-                    color: "grey",
-                    paddingLeft: "10px"
-                }}
-            >
-                {label}
-            </div>
-            {nestedOptions.map((nestedOption: { displayName: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }, i: React.Key | null | undefined) => {
+interface DateOption {
+    displayName: string
+    options: string
+    date: Moment;
+    value: Date;
+    label: string;
+    display?: string;
+  }
 
-                return (
-                    <components.Option {...props} key={i} >
-                        {nestedOption.displayName}
-                    </components.Option>
-                )
-            })}
-        </div>
-    )
-}
-
-const Option = (props: any) => {
+const Option = (props: OptionProps<DateOption, false>) => {
 
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
@@ -68,12 +51,7 @@ const Option = (props: any) => {
         setIsOpenRange(!isOpenRange)
     }
 
-    const { children, data } = props
-    const nestedOptions = data.options
-    if (nestedOptions) {
-        const label = data.displayName
-        return renderNestedOption(props, label, nestedOptions)
-    }
+    const { children } = props
 
     if (children === "Data Range") {
         return (
@@ -94,6 +72,7 @@ const Option = (props: any) => {
                                             <input
                                                 className={isOpen ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='Start Date'
+                                                
                                                 value={isOpen ? moment(startDate).format("MMM DD, yyyy") : 'Start Date'}
                                             />
                                             <span style={{ margin: '10px' }}>
@@ -103,7 +82,7 @@ const Option = (props: any) => {
                                     </div>
                                     {
                                         isOpen &&
-                                        <span onClick={() => setStartDate("" as unknown as Date)} style={{ margin: '0px 10px 0px 0px' }}>
+                                        <span onClick={() => setStartDate( null as any)} style={{ margin: '0px 10px 0px 0px' }}>
                                             <AiOutlineDelete color='grey' />
                                         </span>
                                     }
@@ -113,12 +92,12 @@ const Option = (props: any) => {
                                 {isOpen && (
                                     <div >
                                         <div>
-                                                <DatePicker
-                                                    selected={startDate}
-                                                    onChange={handleChange}
-                                                    isClearable
-                                                    inline
-                                                />
+                                            <DatePicker
+                                                selected={startDate}
+                                                onChange={handleChange}
+                                                isClearable
+                                                inline
+                                            />
                                         </div>
                                     </div>
                                 )}
@@ -162,7 +141,6 @@ const Option = (props: any) => {
                             </div>
                         )}
                     </div>
-
                 </div>
             </components.Option >
         )
@@ -172,39 +150,29 @@ const Option = (props: any) => {
 }
 
 const Opt = () => {
-    // const customStyles = {
-    //     option: (provided: any) => ({
-    //         ...provided,
-    //         //   borderBottom: '1px dotted pink',
-    //         // color: state.isSelected ? 'black' : 'black',
-    //         // backgroundColor: '#e0e8f3',
-    //         padding: 0,
-    //     }),
-    // }
+
     const colourStyles: StylesConfig<true> = {
         control: (styles) => ({ ...styles, backgroundColor: 'white' }),
         option: (styles, { data, isDisabled, isFocused, isSelected, }) => {
             return {
                 backgroundColor: isDisabled ? undefined : isSelected ? '#e0e8f3' : isFocused ? '#f0f6ff' : undefined,
-                fontWeight:  isSelected ? '600' : isFocused ? '600' : '500',
+                fontWeight: isSelected ? '600' : isFocused ? '600' : '500',
             }
         },
     }
 
     return (
 
-        <div style={{ position: 'relative', width: '242px', background: '#fff', fontWeight: '400'}}>
+        <div style={{ position: 'relative', width: '242px', background: '#fff', fontWeight: '400' }}>
             <Select
                 // menuIsOpen
-                components={{ Option }}
+                components={{ Option: Option }}
                 closeMenuOnSelect={false}
                 options={options as []}
                 placeholder="Today"
                 minMenuHeight={200}
                 maxMenuHeight={1200}
-                styles={colourStyles}
-            // onInputChange={handleInputChange}
-            // value={value}
+                styles={colourStyles as object}
             />
         </div>
     )
