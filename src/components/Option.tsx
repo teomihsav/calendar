@@ -19,10 +19,10 @@ interface DateOption {
     moment: Date
 }
 
-const Option = (props: OptionProps<DateOption, false>) => {
+const Option: React.FC<OptionProps<DateOption>> = (props) => {
 
     // setValue : React.Dispatch<React.SetStateAction<string>>
-    
+
     const [startDate, setStartDate] = useState<React.SetStateAction<string | Date>>(new Date())
     const [endDate, setEndDate] = useState<React.SetStateAction<string | Date>>(new Date())
     const [isOpenEnd, setIsOpenEnd] = useState(false)
