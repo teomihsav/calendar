@@ -167,7 +167,8 @@ const Opt = () => {
 
         <div className='select'>
             <Select
-                menuIsOpen
+                // For tests
+                // menuIsOpen
                 components={{ Option: Option }}
                 closeMenuOnSelect={false}
                 options={options as []}
