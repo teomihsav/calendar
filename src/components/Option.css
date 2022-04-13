@@ -74,6 +74,12 @@
   font-weight: 400;
 }
 
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected {
+    border-radius: 0.3rem;
+    background-color: #5aaaad;
+    color: #fff;
+}
+
 .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
   font-weight: bold;
   font-size: 0.944rem;
