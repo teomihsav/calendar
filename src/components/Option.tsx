@@ -21,12 +21,13 @@ interface DateOption {
 
 const Option: React.FC<OptionProps<DateOption>> = (props) => {
 
-    const [startDate, setStartDate] = useState<React.SetStateAction<string | Date>>(new Date())
-    const [endDate, setEndDate] = useState<React.SetStateAction<string | Date>>(new Date())
-    const [isOpenEnd, setIsOpenEnd] = useState(false)
-
-    const [isOpen, setIsOpen] = useState(false)
-    const [isOpenRange, setIsOpenRange] = useState(false)
+    const [startDate, setStartDate] = useState<Date | undefined>(new Date())
+    const [endDate, setEndDate] = useState<Date | undefined>(new Date())
+    const [isOpenEnd, setIsOpenEnd] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpenRange, setIsOpenRange] = useState<boolean>(false)
+    const [stateDate, setStateDate] = useState<boolean>(false)
+    const [stateDateEnd, setStateDateEnd] = useState<boolean>(false)
 
     const handleChange = (e: Date) => {
         setIsOpen(true)
@@ -39,19 +40,21 @@ const Option: React.FC<OptionProps<DateOption>> = (props) => {
 
     const handleClick = () => {
         setIsOpen(!isOpen)
+        setStateDate(true)
     }
     const handleClickEnd = () => {
         setIsOpenEnd(!isOpenEnd)
+        setStateDateEnd(true)
     }
 
     const handleClickRange = () => {
         setIsOpenRange(!isOpenRange)
     }
     const handleDeleteStart = () => {
-        setStartDate('')
+        setStartDate(undefined)
     }
     const handleDeleteEnd = () => {
-        setEndDate('')
+        setEndDate(undefined)
     }
 
     const { children } = props
@@ -75,7 +78,16 @@ const Option: React.FC<OptionProps<DateOption>> = (props) => {
                                             <input
                                                 className={isOpen ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='Start Date'
-                                                value={isOpen ? moment(String(startDate)).isValid() ? moment(String(startDate)).format('MMM DD, YYYY') : ' ' : 'Start Date'}
+                                                value={
+                                                    isOpen ?
+                                                        (
+                                                            moment(String(startDate)).isValid() ? moment(String(startDate)).format('MMM DD, YYYY') : ' '
+                                                        )
+                                                        :
+                                                        (
+                                                            stateDate ? moment(String(startDate)).format('MMM DD, YYYY') : 'Start Date'
+                                                        )
+                                                }
                                             />
                                             <span className='someMargin'>
                                                 {isOpen ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
@@ -110,7 +122,9 @@ const Option: React.FC<OptionProps<DateOption>> = (props) => {
                                             <input
                                                 className={isOpenEnd ? 'inputWithDeleteButton' : 'input'}
                                                 placeholder='End Date'
-                                                value={isOpenEnd ? moment(String(endDate)).isValid() ? moment(String(endDate)).format('MMM DD, YYYY') : ' ' : 'End Date'}
+                                                value={isOpenEnd ? moment(String(endDate)).isValid() ? moment(String(endDate)).format('MMM DD, YYYY') : ' ' :
+                                                    stateDateEnd ? moment(String(endDate)).format('MMM DD, YYYY') : 'End Date'
+                                                }
                                             />
                                             <span className='someMargin'>
                                                 {isOpenEnd ? <AiFillCaretUp color='#347174' /> : <AiFillCaretDown color='grey' />}
