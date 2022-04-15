@@ -7,7 +7,7 @@
     padding: 9px;
     color: #347174;;
     background: white;
-    cursor: 'pointer';
+    cursor: pointer;
     font-weight: 500;
 }
 
@@ -18,7 +18,7 @@
   padding: 9px;
   color: #347174;
   background: white;
-  cursor: 'pointer';
+  cursor: pointer;
   font-weight: 600;
 }
 .pointer {
@@ -44,7 +44,7 @@
 }
 .displayInnerOptionChvron {
   display: flex;
-  padding: 0px;
+  padding: 0;
   color: #205658;
   background: white;
   cursor: pointer;
@@ -189,7 +189,7 @@
 .react-datepicker__header {
   /* background-color: transparent; */
   background-color: white;
-  font: "GothamMedium";
+  font-family: "GothamMedium", sans-serif;
 }
 
 
@@ -212,7 +212,7 @@ button {
 .react-datepicker__day,
 .react-datepicker__time-name {
   border-radius: 5rem;
-  font: "GothamMedium";
+  font-family: "GothamMedium", sans-serif;
 }
 
 /* COLOR FOR SELECTED DATE: #1648C3 */
